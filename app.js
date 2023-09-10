@@ -20,11 +20,26 @@ const password = 1234
 
 // '/' -> default route
 app.get('/', (req, res) => {
-    res.send('Login Page')
+    // res.send('<h1>Login to move forward</h1>')
+    // to send multiple data
+    res.write('<h1>Login to move forward</h1>')
+    res.write('<h2>Login to move forward</h2>')
+    res.send() // this will end the request
 }) 
 app.use(loginMiddleware) // using middleware after login
 app.get('/profile', (req, res)=>{
-    res.send('Profile Page')
+    // res.send('Profile Page')
+    // now sending response in json format
+
+    res.json([{
+                firstName : 'swati',
+                lastName : 'goel'
+            },
+            {
+                firstName : 'abc',
+                lastName : 'def'
+            },
+    ])
 })
 
 app.get('/feed', (req, res)=>{
