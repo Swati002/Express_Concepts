@@ -15,17 +15,44 @@ const app = express()
 //  callback function further takes 2 parameters
 // app.get(route, callback(req, res))
 
+const name = 'Swati'
+const password = 1234
 
 // '/' -> default route
 app.get('/', (req, res) => {
-    res.send('Hello')
+    res.send('Login Page')
 }) 
+app.use(loginMiddleware) // using middleware after login
+app.get('/profile', (req, res)=>{
+    res.send('Profile Page')
+})
 
-app.get('/name', (req, res)=>{
-    res.send('My name is Swati Goel')
+app.get('/feed', (req, res)=>{
+    res.send('Feed Page')
 })
 
 // in browser to get any data, we need to define a port
 app.listen(8000, ()=>{
     console.log('Port 8000')
 })
+
+
+// Middleware in Express.js
+
+
+//  req -> function -> res
+// this function is a middleware, for example [aunthetication] when we login to a site this function checks in its database whether user exists or not and then sends response accordingly
+
+// Express allows us to apply multiple middleware(checks)
+// request -> middleware -> middleware -> response
+
+
+function loginMiddleware(req, res, next){
+    // here next() is the method which tell further routes are allowed to visit
+    if(name == 'Swati' && password == 1234){
+        next()
+    }
+    else{
+        res.send('Cannot Authenticate the user')
+    }
+}
